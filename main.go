@@ -33,7 +33,7 @@ func registerCommands() []cli.Command {
 }
 
 func runService(c *cli.Context) error {
-    output, err := exec.Command("go", "run", "./main.go").Output()
+    _, err := exec.Command("go", "run", "./main.go").Output()
 
     if err != nil {
         fmt.Println(err)
