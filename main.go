@@ -25,15 +25,16 @@ func main() {
 func registerCommands() []cli.Command {
     return []cli.Command{
         {
-            Name:   "run",
-            Usage:  "Run Husky service",
-            Action: runService,
+            Name:       "run",
+            Aliases:    []string{"t"},
+            Usage:      "Run Husky service",
+            Action:     runService,
         },
     }
 }
 
 func runService(c *cli.Context) error {
-    output, err := exec.Command("go", "run", "./main.go").Output()
+    output,err := exec.Command("./" + c.Args().Get(0))
 
     if err == nil {
         fmt.Println(output)
