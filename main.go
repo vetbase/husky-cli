@@ -35,7 +35,7 @@ func registerCommands() []cli.Command {
 			Usage:  "Start Husky service",
 			Action: startService,
 			Flags: []cli.Flag{
-				cli.StringFlag{
+				cli.BoolFlag{
 					Name:  "d",
 					Usage: "Run service in detached mode",
 				},
@@ -45,8 +45,22 @@ func registerCommands() []cli.Command {
 }
 
 func startService(c *cli.Context) error {
-	var app = c.Args().Get(0)
-	_, err := exec.Command("./" + app).Output()
+	var app      = c.Args().Get(0)
+    var detached = c.Bool("d")
+
+    // build command
+    cmd := exec.Command("./" + app)
+
+    // define error variable
+    var err error
+
+    // if detached process is requested
+    // else output the command to stdout
+    if detached {
+        err = cmd.Start()
+    } else {
+        _,err = cmd.Output()
+    }
 
 	if err != nil {
 		fmt.Println(err)
