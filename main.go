@@ -33,12 +33,12 @@ func registerCommands() []cli.Command {
 }
 
 func runService(c *cli.Context) error {
-    _, err := exec.Command("go", "run", "./main.go").Output()
+    output, err := exec.Command("go", "run", "./main.go").Output()
 
-    if err != nil {
-        fmt.Println(err)
+    if err == nil {
+        fmt.Println(output)
     } else {
-        fmt.Println("==> Running Husky service")
+        fmt.Println(err)
     }
 
     return nil
