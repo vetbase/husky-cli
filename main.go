@@ -31,15 +31,14 @@ func init() {
 func registerCommands() []cli.Command {
     return []cli.Command{
         {
-            Name:       "run",
-            Aliases:    []string{"r"},
-            Usage:      "Run Husky service",
-            Action:     runService,
+            Name:       "start",
+            Usage:      "Start Husky service",
+            Action:     startService,
         },
     }
 }
 
-func runService(c *cli.Context) error {
+func startService(c *cli.Context) error {
     var app = c.Args().Get(0)
     _,err := exec.Command("./" + app).Output()
 
