@@ -34,7 +34,7 @@ func registerCommands() []cli.Command {
 			Name:   "start",
 			Usage:  "Start Husky service",
 			Action: startService,
-			Flags: []cli.Flags{
+			Flags: []cli.Flag{
 				cli.StringFlag{
 					Name:  "d",
 					Value: "detached",
