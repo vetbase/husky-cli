@@ -45,24 +45,24 @@ func registerCommands() []cli.Command {
 }
 
 func startService(c *cli.Context) error {
-    // define required variables
-    var err error
-	var app      = c.Args().Get(0)
-    var detached = c.Bool("d")
+	// define required variables
+	var err error
+	var app = c.Args().Get(0)
+	var detached = c.Bool("d")
 
-    // build command
-    cmd := exec.Command("./" + app)
+	// build command
+	cmd := exec.Command("./" + app)
 
-    // if detached process is requested
-    // else output the command to stdout
-    fmt.Println("Starting " + app + " service...")
-    if detached {
-        err = cmd.Start()
-    } else {
-        _,err = cmd.Output()
-    }
+	// if detached process is requested
+	// else output the command to stdout
+	fmt.Println("Starting " + app + " service...")
+	if detached {
+		err = cmd.Start()
+	} else {
+		_, err = cmd.Output()
+	}
 
-    fmt.Println(cmd.Stdout)
+	fmt.Println(cmd.Stdout)
 
 	if err != nil {
 		fmt.Println(err)
