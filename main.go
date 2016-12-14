@@ -32,7 +32,7 @@ func registerCommands() []cli.Command {
     return []cli.Command{
         {
             Name:       "run",
-            Aliases:    []string{"-r"},
+            Aliases:    []string{"r"},
             Usage:      "Run Husky service",
             Action:     runService,
         },
