@@ -37,9 +37,7 @@ func runService(c *cli.Context) error {
     var app = c.Args().Get(0)
     _,err := exec.Command("./" + app).Output()
 
-    if err == nil {
-        return cli.NewExitError("Running: " + app, 0)
-    } else {
+    if err != nil {
         fmt.Println(err)
     }
 
