@@ -37,7 +37,6 @@ func registerCommands() []cli.Command {
 			Flags: []cli.Flag{
 				cli.StringFlag{
 					Name:  "d",
-					Value: "detached",
 					Usage: "Run service in detached mode",
 				},
 			},
