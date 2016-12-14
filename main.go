@@ -1,52 +1,57 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "os/exec"
+	"fmt"
+	"os"
+	"os/exec"
 
-    "github.com/urfave/cli"
+	"github.com/urfave/cli"
 )
 
 func main() {
-    // create CLI application
-    app := cli.NewApp()
+	// create CLI application
+	app := cli.NewApp()
 
-    // set fields
-    app.Name        = "Husky"
-    app.Usage       = "Microframework for developing services"
-    app.Version     = "0.1.0"
-    app.Commands    = registerCommands()
+	// set fields
+	app.Name = "Husky"
+	app.Usage = "Microframework for developing services"
+	app.Version = "0.1.0"
+	app.Commands = registerCommands()
 
-    // return CLI app
-    app.Run(os.Args)
+	// return CLI app
+	app.Run(os.Args)
 }
 
 func init() {
-    cli.OsExiter = func(c int) {
-        fmt.Fprintf(cli.ErrWriter, "refusing to exit %d\n", c)
-    }
+	cli.OsExiter = func(c int) {
+		fmt.Fprintf(cli.ErrWriter, "refusing to exit %d\n", c)
+	}
 }
 
 func registerCommands() []cli.Command {
-    return []cli.Command{
-        {
-            Name:       "start",
-            Usage:      "Start Husky service",
-            Action:     startService,
-        },
-    }
+	return []cli.Command{
+		{
+			Name:   "start",
+			Usage:  "Start Husky service",
+			Action: startService,
+			Flags: []cli.Flags{
+				cli.StringFlag{
+					Name:  "d",
+					Value: "detached",
+					Usage: "Run service in detached mode",
+				},
+			},
+		},
+	}
 }
 
 func startService(c *cli.Context) error {
-    var app = c.Args().Get(0)
-    _,err := exec.Command("./" + app).Output()
+	var app = c.Args().Get(0)
+	_, err := exec.Command("./" + app).Output()
 
-    if err != nil {
-        fmt.Println(err)
-    }
+	if err != nil {
+		fmt.Println(err)
+	}
 
-    os.Exit(0)
-
-    return nil
+	return nil
 }
