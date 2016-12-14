@@ -22,6 +22,12 @@ func main() {
     app.Run(os.Args)
 }
 
+func init() {
+    cli.OsExiter = func(c int) {
+        fmt.Fprintf(cli.ErrWriter, "refusing to exit %d\n", c)
+    }
+}
+
 func registerCommands() []cli.Command {
     return []cli.Command{
         {
