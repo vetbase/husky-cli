@@ -34,10 +34,11 @@ func registerCommands() []cli.Command {
 }
 
 func runService(c *cli.Context) error {
-    output,err := exec.Command("./" + c.Args().Get(0)).Output()
+    var app = c.Args().Get(0)
+    _,err := exec.Command("./" + app).Output()
 
     if err == nil {
-        fmt.Println(output)
+        return cli.NewExitError("Running: " + app, 0)
     } else {
         fmt.Println(err)
     }
